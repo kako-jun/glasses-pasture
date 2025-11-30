@@ -1,4 +1,4 @@
-name = "glasses-pasture-worker"
+name = "glasses-pasture-api"
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 
@@ -8,7 +8,7 @@ ENVIRONMENT = "development"
 [[d1_databases]]
 binding = "DB"
 database_name = "glasses-pasture-db"
-database_id = "placeholder-will-be-replaced-after-creation"
+database_id = "8c0ffb50-6cd0-4cfc-b499-689883bcb167"
 
 # Cron trigger for interaction simulation (every hour)
 [triggers]

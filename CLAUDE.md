@@ -61,9 +61,69 @@ pnpm dev:web
 # バックエンド開発サーバー
 pnpm dev:worker
 
+# ローカルD1マイグレーション
+pnpm --filter @glasses-pasture/worker db:migrate:local
+
+# 開発用シードデータ投入 (Worker起動中に実行)
+pnpm --filter @glasses-pasture/worker seed
+
 # ビルド
 pnpm build
 ```
+
+## デプロイ手順
+
+### 本番環境
+
+- **フロントエンド:** https://glasses-pasture.llll-ll.com (Cloudflare Pages)
+- **バックエンド:** https://glasses-pasture-api.kako-jun.workers.dev (Cloudflare Workers)
+
+### 初回セットアップ
+
+```bash
+# 1. Cloudflareにログイン
+cd apps/worker && npx wrangler login
+
+# 2. D1データベース作成
+npx wrangler d1 create glasses-pasture-db
+
+# 3. wrangler.toml の database_id を更新
+
+# 4. 本番D1にマイグレーション適用
+npx wrangler d1 migrations apply glasses-pasture-db --remote
+
+# 5. Workerデプロイ
+npx wrangler deploy
+```
+
+### 以降のデプロイ
+
+```bash
+# Workerデプロイ
+cd apps/worker && npx wrangler deploy
+
+# マイグレーション追加時
+npx wrangler d1 migrations apply glasses-pasture-db --remote
+```
+
+### フロントエンド (Cloudflare Pages)
+
+1. GitHubリポジトリと連携
+2. ビルド設定:
+   - ビルドコマンド: `pnpm build:web`
+   - 出力ディレクトリ: `apps/web/dist`
+   - ルートディレクトリ: `/`
+3. 環境変数: `VITE_API_URL=https://glasses-pasture-api.kako-jun.workers.dev`
+
+### カスタムドメイン設定（推奨）
+
+Workers にカスタムドメインを設定すると管理しやすい：
+
+1. Cloudflare Dashboard → Workers & Pages → glasses-pasture-api
+2. Settings → Triggers → Custom Domains
+3. `api.glasses-pasture.llll-ll.com` を追加
+
+設定後は `VITE_API_URL=https://api.glasses-pasture.llll-ll.com` に変更
 
 ## 主要な設計決定
 
