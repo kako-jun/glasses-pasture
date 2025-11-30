@@ -16,7 +16,6 @@ function ScreeningPage() {
   const [state, setState] = useState<ScreeningState>('intro');
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Array<{ questionId: number; answer: 'A' | 'B' }>>([]);
-  const [feedback, setFeedback] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
 
   useEffect(() => {
@@ -38,10 +37,6 @@ function ScreeningPage() {
     const newAnswers = [...answers, { questionId, answer }];
     setAnswers(newAnswers);
 
-    // Show feedback
-    setFeedback(t('screening.wipeLens'));
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    setFeedback('');
     setIsProcessing(false);
 
     if (currentQuestion < SCREENING_CONFIG.QUESTION_COUNT - 1) {
@@ -149,8 +144,6 @@ function ScreeningPage() {
             </button>
           </div>
 
-          {/* Feedback */}
-          {feedback && <p className={styles.feedback}>{feedback}</p>}
         </div>
       </div>
     );
