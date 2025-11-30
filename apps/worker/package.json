@@ -8,15 +8,17 @@
     "build": "wrangler deploy --dry-run",
     "deploy": "wrangler deploy",
     "db:migrate": "wrangler d1 migrations apply glasses-pasture-db",
-    "db:migrate:local": "wrangler d1 migrations apply glasses-pasture-db --local"
+    "db:migrate:local": "wrangler d1 migrations apply glasses-pasture-db --local",
+    "seed": "npx tsx scripts/seed.ts"
   },
   "dependencies": {
-    "@glasses-pasture/shared": "workspace:*",
     "@glasses-pasture/i18n": "workspace:*",
+    "@glasses-pasture/shared": "workspace:*",
     "hono": "^4.6.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20241127.0",
+    "tsx": "^4.20.6",
     "typescript": "^5.7.2",
     "wrangler": "^3.91.0"
   }
