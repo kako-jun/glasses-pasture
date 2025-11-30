@@ -17,6 +17,7 @@ function ScreeningPage() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Array<{ questionId: number; answer: 'A' | 'B' }>>([]);
   const [feedback, setFeedback] = useState('');
+  const [isProcessing, setIsProcessing] = useState(false);
 
   useEffect(() => {
     if (screeningPassed) {
@@ -29,6 +30,10 @@ function ScreeningPage() {
   };
 
   const handleAnswer = async (answer: 'A' | 'B') => {
+    // Prevent double-clicks
+    if (isProcessing) return;
+    setIsProcessing(true);
+
     const questionId = currentQuestion + 1;
     const newAnswers = [...answers, { questionId, answer }];
     setAnswers(newAnswers);
@@ -37,6 +42,7 @@ function ScreeningPage() {
     setFeedback(t('screening.wipeLens'));
     await new Promise((resolve) => setTimeout(resolve, 800));
     setFeedback('');
+    setIsProcessing(false);
 
     if (currentQuestion < SCREENING_CONFIG.QUESTION_COUNT - 1) {
       setCurrentQuestion(currentQuestion + 1);
@@ -130,12 +136,14 @@ function ScreeningPage() {
             <button
               className={styles.optionButton}
               onClick={() => handleAnswer('A')}
+              disabled={isProcessing}
             >
               {t(optionAKey)}
             </button>
             <button
               className={styles.optionButton}
               onClick={() => handleAnswer('B')}
+              disabled={isProcessing}
             >
               {t(optionBKey)}
             </button>
