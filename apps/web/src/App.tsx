@@ -18,6 +18,9 @@ function App() {
       try {
         // Create or get user
         const userResult = await usersApi.createOrGet(userId || undefined);
+        if (userResult.error) {
+          console.error('Failed to create/get user:', userResult.error);
+        }
         if (userResult.data) {
           setUserId(userResult.data.id);
           setScreeningPassed(userResult.data.screeningPassed);

@@ -41,8 +41,15 @@ function ScreeningPage() {
     if (currentQuestion < SCREENING_CONFIG.QUESTION_COUNT - 1) {
       setCurrentQuestion(currentQuestion + 1);
     } else {
+      // Check if userId exists
+      if (!userId) {
+        console.error('userId is null - user creation may have failed');
+        setState('failed');
+        return;
+      }
+
       // Submit answers
-      const result = await screeningApi.submit(userId!, newAnswers);
+      const result = await screeningApi.submit(userId, newAnswers);
 
       if (result.data?.passed) {
         setState('passed');
