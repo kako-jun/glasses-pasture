@@ -1,0 +1,23 @@
+{
+  "name": "@glasses-pasture/worker",
+  "version": "1.0.0",
+  "description": "Cloudflare Workers backend",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "build": "wrangler deploy --dry-run",
+    "deploy": "wrangler deploy",
+    "db:migrate": "wrangler d1 migrations apply glasses-pasture-db",
+    "db:migrate:local": "wrangler d1 migrations apply glasses-pasture-db --local"
+  },
+  "dependencies": {
+    "@glasses-pasture/shared": "workspace:*",
+    "@glasses-pasture/i18n": "workspace:*",
+    "hono": "^4.6.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241127.0",
+    "typescript": "^5.7.2",
+    "wrangler": "^3.91.0"
+  }
+}

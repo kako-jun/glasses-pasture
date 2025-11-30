@@ -1,0 +1,193 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: var(--font-size-xl);
+  color: var(--color-text-primary);
+}
+
+.description {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+}
+
+.loading {
+  color: var(--color-text-muted);
+  text-align: center;
+  padding: var(--spacing-2xl);
+}
+
+/* Gambit list */
+.gambitList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.gambitCard {
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  transition: opacity var(--transition-fast);
+}
+
+.gambitCard.disabled {
+  opacity: 0.5;
+}
+
+.gambitHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.priority {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}
+
+/* Toggle switch */
+.enableToggle {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+
+.enableToggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggleSlider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--color-bg-tertiary);
+  transition: var(--transition-fast);
+  border-radius: 24px;
+}
+
+.toggleSlider::before {
+  position: absolute;
+  content: '';
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: var(--color-text-secondary);
+  transition: var(--transition-fast);
+  border-radius: 50%;
+}
+
+.enableToggle input:checked + .toggleSlider {
+  background-color: var(--color-accent);
+}
+
+.enableToggle input:checked + .toggleSlider::before {
+  transform: translateX(20px);
+  background-color: white;
+}
+
+/* Gambit body */
+.gambitBody {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.rule {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.ruleLabel {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.ruleValue {
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
+}
+
+.arrow {
+  color: var(--color-accent);
+  font-size: var(--font-size-lg);
+}
+
+/* Gambit footer */
+.gambitFooter {
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--color-bg-tertiary);
+}
+
+.probabilityLabel {
+  display: block;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.probabilitySlider {
+  width: 100%;
+  height: 4px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--color-bg-tertiary);
+  border-radius: 2px;
+  outline: none;
+}
+
+.probabilitySlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+}
+
+.probabilitySlider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.probabilitySlider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  cursor: pointer;
+  border: none;
+}
+
+@media (max-width: 768px) {
+  .gambitBody {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .arrow {
+    transform: rotate(90deg);
+  }
+}

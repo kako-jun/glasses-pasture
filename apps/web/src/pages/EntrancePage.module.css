@@ -1,0 +1,222 @@
+.container {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Background layers */
+.background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.sky {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    #6b7d8a 0%,
+    #94a3b8 40%,
+    #b8c5d4 100%
+  );
+}
+
+.fog {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  animation: fogDrift 20s ease-in-out infinite;
+}
+
+@keyframes fogDrift {
+  0%, 100% {
+    transform: translateX(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateX(10px);
+    opacity: 0.7;
+  }
+}
+
+.grass {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(
+    to bottom,
+    #5a6b55 0%,
+    #4a5d45 50%,
+    #3d4f3a 100%
+  );
+}
+
+.fence {
+  position: absolute;
+  bottom: 30%;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 40px,
+    #8b7355 40px,
+    #8b7355 45px
+  );
+}
+
+.fence::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: #8b7355;
+}
+
+.fence::after {
+  content: '';
+  position: absolute;
+  top: 35px;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: #8b7355;
+}
+
+/* Content */
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xl);
+  padding: var(--spacing-xl);
+  max-width: 600px;
+  text-align: center;
+}
+
+/* Notice sign - paper pinned to fence */
+.notice {
+  background: var(--color-paper);
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  transform: rotate(-2deg);
+  position: relative;
+}
+
+.notice::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 10px;
+  background: #a0522d;
+  border-radius: 2px;
+}
+
+.noticeText {
+  color: #333;
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+/* Welcome text */
+.welcome {
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
+  line-height: 1.8;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  max-width: 400px;
+}
+
+/* Enter button */
+.enterButton {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-normal);
+  cursor: pointer;
+}
+
+.enterButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.enterButton:active {
+  transform: scale(0.95);
+}
+
+.glassesEmoji {
+  font-size: 2.5rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+@media (max-width: 768px) {
+  .notice {
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+
+  .noticeText {
+    font-size: var(--font-size-lg);
+  }
+
+  .welcome {
+    font-size: var(--font-size-sm);
+  }
+
+  .enterButton {
+    width: 60px;
+    height: 60px;
+  }
+
+  .glassesEmoji {
+    font-size: 2rem;
+  }
+}
+
+/* Debug link - only shown in development */
+.debugLink {
+  position: fixed;
+  bottom: var(--spacing-md);
+  right: var(--spacing-md);
+  background: rgba(255, 100, 100, 0.8);
+  color: white;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  cursor: pointer;
+  z-index: 1000;
+  opacity: 0.7;
+  transition: opacity var(--transition-fast);
+}
+
+.debugLink:hover {
+  opacity: 1;
+}
