@@ -59,32 +59,54 @@ function EntrancePage() {
           <button
             className={styles.debugLink}
             onClick={async () => {
-              // Create real user and glasses via API for debug
-              const store = useUserStore.getState();
+              try {
+                // Create real user and glasses via API for debug
+                const store = useUserStore.getState();
 
-              // Ensure we have a user
-              let userId = store.userId;
-              if (!userId) {
-                const userResult = await usersApi.createOrGet();
-                if (userResult.data) {
-                  userId = userResult.data.id;
-                  store.setUserId(userId);
+                // Ensure we have a user
+                let userId = store.userId;
+                if (!userId) {
+                  const userResult = await usersApi.createOrGet();
+                  if (userResult.error) {
+                    console.error('Failed to create user:', userResult.error);
+                    alert(`API Error: ${userResult.error}\nMake sure the API server is running (pnpm dev:api)`);
+                    return;
+                  }
+                  if (userResult.data) {
+                    userId = userResult.data.id;
+                    store.setUserId(userId);
+                  }
                 }
-              }
 
-              if (!userId) {
-                console.error('Failed to create user');
-                return;
-              }
+                if (!userId) {
+                  console.error('Failed to create user');
+                  alert('Failed to create user. Check console for details.');
+                  return;
+                }
 
-              // Create glasses
-              const glassesResult = await glassesApi.create(userId);
-              if (glassesResult.data) {
-                store.setGlasses(glassesResult.data as any);
-              }
+                // Check if glasses already exist
+                const existingGlasses = await glassesApi.getByUser(userId);
+                if (existingGlasses.data) {
+                  store.setGlasses(existingGlasses.data as any);
+                } else {
+                  // Create glasses
+                  const glassesResult = await glassesApi.create(userId);
+                  if (glassesResult.error) {
+                    console.error('Failed to create glasses:', glassesResult.error);
+                    alert(`API Error: ${glassesResult.error}`);
+                    return;
+                  }
+                  if (glassesResult.data) {
+                    store.setGlasses(glassesResult.data as any);
+                  }
+                }
 
-              store.setScreeningPassed(true);
-              navigate('/pasture');
+                store.setScreeningPassed(true);
+                navigate('/pasture');
+              } catch (err) {
+                console.error('Skip error:', err);
+                alert(`Error: ${err}`);
+              }
             }}
           >
             [DEV] Skip to Pasture

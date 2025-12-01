@@ -1,5 +1,6 @@
 import { Outlet, NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { PastureBackground } from './PastureBackground';
 import styles from './Layout.module.css';
 
 function Layout() {
@@ -7,6 +8,7 @@ function Layout() {
 
   return (
     <div className={styles.container}>
+      <PastureBackground />
       <nav className={styles.nav}>
         <NavLink
           to="/pasture"

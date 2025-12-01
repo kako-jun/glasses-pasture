@@ -2,14 +2,18 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .nav {
   display: flex;
   gap: var(--spacing-md);
   padding: var(--spacing-md) var(--spacing-lg);
-  background-color: var(--color-bg-secondary);
-  border-bottom: 1px solid var(--color-bg-tertiary);
+  background-color: rgba(22, 33, 62, 0.85);
+  border-bottom: 1px solid rgba(15, 52, 96, 0.5);
+  backdrop-filter: blur(4px);
+  position: relative;
+  z-index: 10;
 }
 
 .navLink {
@@ -37,6 +41,8 @@
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  position: relative;
+  z-index: 10;
 }
 
 @media (max-width: 768px) {
