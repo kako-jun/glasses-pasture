@@ -1,7 +1,7 @@
 {
-  "name": "@glasses-pasture/worker",
+  "name": "@glasses-pasture/api",
   "version": "1.0.0",
-  "description": "Cloudflare Workers backend",
+  "description": "Hono API backend on Cloudflare Workers",
   "main": "src/index.ts",
   "scripts": {
     "dev": "wrangler dev",

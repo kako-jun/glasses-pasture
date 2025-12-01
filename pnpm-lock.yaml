@@ -8,6 +8,31 @@ importers:
 
   .: {}
 
+  apps/api:
+    dependencies:
+      '@glasses-pasture/i18n':
+        specifier: workspace:*
+        version: link:../../packages/i18n
+      '@glasses-pasture/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
+      hono:
+        specifier: ^4.6.0
+        version: 4.10.7
+    devDependencies:
+      '@cloudflare/workers-types':
+        specifier: ^4.20241127.0
+        version: 4.20251128.0
+      tsx:
+        specifier: ^4.20.6
+        version: 4.20.6
+      typescript:
+        specifier: ^5.7.2
+        version: 5.9.3
+      wrangler:
+        specifier: ^3.91.0
+        version: 3.114.15(@cloudflare/workers-types@4.20251128.0)
+
   apps/web:
     dependencies:
       '@glasses-pasture/i18n':
@@ -53,31 +78,6 @@ importers:
       vite-plugin-pwa:
         specifier: ^0.21.1
         version: 0.21.2(vite@6.4.1(terser@5.44.1)(tsx@4.20.6))(workbox-build@7.4.0(@types/babel__core@7.20.5))(workbox-window@7.4.0)
-
-  apps/worker:
-    dependencies:
-      '@glasses-pasture/i18n':
-        specifier: workspace:*
-        version: link:../../packages/i18n
-      '@glasses-pasture/shared':
-        specifier: workspace:*
-        version: link:../../packages/shared
-      hono:
-        specifier: ^4.6.0
-        version: 4.10.7
-    devDependencies:
-      '@cloudflare/workers-types':
-        specifier: ^4.20241127.0
-        version: 4.20251128.0
-      tsx:
-        specifier: ^4.20.6
-        version: 4.20.6
-      typescript:
-        specifier: ^5.7.2
-        version: 5.9.3
-      wrangler:
-        specifier: ^3.91.0
-        version: 3.114.15(@cloudflare/workers-types@4.20251128.0)
 
   packages/i18n: {}
 

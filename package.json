@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "pnpm -r dev",
     "dev:web": "pnpm --filter @glasses-pasture/web dev",
-    "dev:worker": "pnpm --filter @glasses-pasture/worker dev",
+    "dev:api": "pnpm --filter @glasses-pasture/api dev",
     "build": "pnpm -r build",
     "build:web": "pnpm --filter @glasses-pasture/web build"
   },

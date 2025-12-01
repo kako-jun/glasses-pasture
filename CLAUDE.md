@@ -36,7 +36,7 @@
 glasses-pasture/
 ├── apps/
 │   ├── web/        # フロントエンド (React)
-│   └── worker/     # バックエンド (Cloudflare Workers)
+│   └── api/        # バックエンド (Hono + Cloudflare Workers)
 ├── packages/
 │   ├── shared/     # 共通型定義・定数
 │   └── i18n/       # 多言語辞書
@@ -59,13 +59,13 @@ pnpm install
 pnpm dev:web
 
 # バックエンド開発サーバー
-pnpm dev:worker
+pnpm dev:api
 
 # ローカルD1マイグレーション
-pnpm --filter @glasses-pasture/worker db:migrate:local
+pnpm --filter @glasses-pasture/api db:migrate:local
 
-# 開発用シードデータ投入 (Worker起動中に実行)
-pnpm --filter @glasses-pasture/worker seed
+# 開発用シードデータ投入 (API起動中に実行)
+pnpm --filter @glasses-pasture/api seed
 
 # ビルド
 pnpm build
@@ -82,7 +82,7 @@ pnpm build
 
 ```bash
 # 1. Cloudflareにログイン
-cd apps/worker && npx wrangler login
+cd apps/api && npx wrangler login
 
 # 2. D1データベース作成
 npx wrangler d1 create glasses-pasture-db
@@ -99,8 +99,8 @@ npx wrangler deploy
 ### 以降のデプロイ
 
 ```bash
-# Workerデプロイ
-cd apps/worker && npx wrangler deploy
+# APIデプロイ
+cd apps/api && npx wrangler deploy
 
 # マイグレーション追加時
 npx wrangler d1 migrations apply glasses-pasture-db --remote
